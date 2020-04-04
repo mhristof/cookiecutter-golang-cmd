@@ -10,7 +10,7 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:   "{{cookiecutter.project_slug}}",
-	Short: "{{project_short_description}}",
+	Short: "{{cookiecutter.project_short_description}}",
 	Long:  `TODO: changeme`,
 	Run: func(cmd *cobra.Command, args []string) {
 		Verbose(cmd)
