@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/mhristof/{{cookiecutter.project_slug}}/log"
+	"github.com/{{github_username}}/{{cookiecutter.project_slug}}/log"
 	"github.com/spf13/cobra"
 )
 
 var rootCmd = &cobra.Command{
 	Use:   "{{cookiecutter.project_slug}}",
-	Short: "TODO: changeme",
+	Short: "{{project_short_description}}",
 	Long:  `TODO: changeme`,
 	Run: func(cmd *cobra.Command, args []string) {
 		Verbose(cmd)
