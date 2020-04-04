@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/{{github_username}}/{{cookiecutter.project_slug}}/log"
+	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_slug}}/log"
 	"github.com/spf13/cobra"
 )
 
