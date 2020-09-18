@@ -24,6 +24,10 @@ func Panic(args ...interface{}) {
 	logger.Panic(args...)
 }
 
+func Fatal(args ...interface{}) {
+	logger.Fatal(args...)
+}
+
 func WithFields(fields logrus.Fields) *logrus.Entry {
 	return logger.WithFields(fields)
 }

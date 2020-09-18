@@ -14,16 +14,24 @@ var (
 		Short: "Update the binary with a new version",
 		Run: func(cmd *cobra.Command, args []string) {
 			url := fmt.Sprintf("https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_slug}}/releases/latest/download/{{cookiecutter.project_slug}}.%s", runtime.GOOS)
-			//
 			updates, updateFunc, err := update.Check(url)
 			if err != nil {
 				panic(err)
 			}
 
-			if updates {
-				fmt.Println("New version downloaded!")
-				updateFunc()
+			if !updates {
+				return
 			}
+
+			if silent, _ := cmd.Flags().GetBool("silent"); !silent {
+				fmt.Println("New version downloaded!")
+			}
+
+			if dryrun, _ := cmd.Flags().GetBool("dryrun"); dryrun {
+				return
+			}
+
+			updateFunc()
 		},
 	}
 )
