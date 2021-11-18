@@ -11,13 +11,13 @@ import (
 var version = "devel"
 
 var rootCmd = &cobra.Command{
-	Use:   "{{cookiecutter.project_slug}}",
-	Short: "{{cookiecutter.project_short_description}}",
-	Long:  `TODO: changeme`,
+	Use:     "{{cookiecutter.project_slug}}",
+	Short:   "{{cookiecutter.project_short_description}}",
+	Long:    `TODO: changeme`,
 	Version: version,
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 		Verbose(cmd)
-	}
+	},
 }
 
 // Verbose Increase verbosity.
