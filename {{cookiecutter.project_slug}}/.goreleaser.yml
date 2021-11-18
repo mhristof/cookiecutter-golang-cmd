@@ -14,7 +14,7 @@ builds:
       - linux
       - darwin
     ldflags:
-      - -X github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_slug}}/cmd.version={{.Version}}
+      - -X github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_slug}}/cmd.version={{ "{{" }}.Version{{ "}}" }}
 archives:
   - replacements:
       darwin: Darwin
@@ -23,7 +23,7 @@ archives:
 checksum:
   name_template: 'checksums.txt'
 snapshot:
-  name_template: "{{ incpatch .Tag }}-next"
+  name_template: "{{ "{{" }} incpatch .Tag {{ "}}" }}-next"
 changelog:
   sort: asc
   filters:
