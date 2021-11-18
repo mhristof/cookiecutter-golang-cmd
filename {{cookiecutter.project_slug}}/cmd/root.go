@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_slug}}/log"
+	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
 
@@ -15,12 +15,12 @@ var rootCmd = &cobra.Command{
 	Short: "{{cookiecutter.project_short_description}}",
 	Long:  `TODO: changeme`,
 	Version: version,
-	Run: func(cmd *cobra.Command, args []string) {
+	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 		Verbose(cmd)
-	},
+	}
 }
 
-// Verbose Increase verbosity
+// Verbose Increase verbosity.
 func Verbose(cmd *cobra.Command) {
 	verbose, err := cmd.Flags().GetBool("verbose")
 	if err != nil {
@@ -31,12 +31,13 @@ func Verbose(cmd *cobra.Command) {
 		log.SetLevel(log.DebugLevel)
 	}
 }
+
 func init() {
 	rootCmd.PersistentFlags().BoolP("verbose", "v", false, "Increase verbosity")
 	rootCmd.PersistentFlags().BoolP("dryrun", "n", false, "Dry run")
 }
 
-// Execute The main function for the root command
+// Execute The main function for the root command.
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
