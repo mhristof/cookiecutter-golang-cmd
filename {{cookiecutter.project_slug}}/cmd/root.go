@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	log "github.com/sirupsen/logrus"
+	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
 )
 
@@ -22,18 +22,28 @@ var rootCmd = &cobra.Command{
 
 // Verbose Increase verbosity.
 func Verbose(cmd *cobra.Command) {
-	verbose, err := cmd.Flags().GetBool("verbose")
+	verbose, err := cmd.Flags().GetCount("verbose")
 	if err != nil {
-		log.Panic(err)
+		panic(err)
 	}
 
-	if verbose {
-		log.SetLevel(log.DebugLevel)
+	log.Logger = log.Output(zerolog.ConsoleWriter{
+		Out: os.Stdout,
+		TimeFormat: time.RFC3339
+	})
+
+	switch verbose {
+	case 1:
+		zerolog.SetGlobalLevel(zerolog.DebugLevel)
+	case 2:
+		zerolog.SetGlobalLevel(zerolog.TraceLevel)
+	default:
+		zerolog.SetGlobalLevel(zerolog.InfoLevel)
 	}
 }
 
 func init() {
-	rootCmd.PersistentFlags().BoolP("verbose", "v", false, "Increase verbosity")
+	rootCmd.PersistentFlags().CountP("verbose", "v", "Increase verbosity")
 	rootCmd.PersistentFlags().BoolP("dryrun", "n", false, "Dry run")
 }
 
